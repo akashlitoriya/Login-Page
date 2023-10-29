@@ -45,11 +45,13 @@ const Login = () => {
         align-items: center;
         border-radius: 12px;
         box-shadow: 0 0 10px rgba(0,0,0,0.16);
-        padding: 2rem 0 2rem 0;
+        box-sizing: border-box;
+        padding: 0rem 3rem 2rem 0rem;
 
         @media(max-width: 768px){
             width: 100%;
-            padding: 0;
+            padding: 0px 13px 10px 13px;
+            margin: 0px 10px 0px 10px;
         }
     `;
 
@@ -95,7 +97,9 @@ const Login = () => {
         border: 1px solid #04072F66;
         padding: 1rem;
         font-size: 1rem;
-        
+        @media(max-width: 768px){
+            width: 90%;
+        }
     `;
 
     const Icon = styled.div`
@@ -128,6 +132,15 @@ const Login = () => {
         justify-content: flex-start; 
         align-items: center;
     `;
+    const CheckBoxWrapper = styled.div`
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        @media(max-width: 768px){
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+    `
     const CheckBox = styled.input`
 
     `;
@@ -139,8 +152,14 @@ const Login = () => {
 
     const HighLightedText = styled.span`
         color: #F78719;
+        cursor: pointer;
+        ${props => props.boldCondition && `font-weight: 700;`}
+        ${props => props.underlineCondition && `text-decoration: underline;`}
     `;
-    
+    const Subheading = styled.h2`
+        font-size: 1em;
+        font-weight: 400;
+    `
   return (
     <div>
         <Container>
@@ -149,7 +168,7 @@ const Login = () => {
                     
                 <FormSection>
                     <Heading>Login</Heading>
-                    <FormContainer onSubmit={()=>console.log("Form Submitted")}>
+                    <FormContainer onSubmit={()=>alert('Form Submitted')}>
                         <InputContainer>
                             <Label htmlFor="login_id">Login ID</Label>
                             <Input {...register("login_id", {required:true})} id='login_id' placeholder='Enter login id'></Input>
@@ -164,15 +183,19 @@ const Login = () => {
                             
                             </Icon>
                         </InputContainer>
+                        <CheckBoxWrapper>
+                            <CheckBoxContainer>
+                                <CheckBox type='checkbox'/>
+                                <CheckBoxLabel>Remember Me</CheckBoxLabel>
+                            </CheckBoxContainer>
+                            <HighLightedText underlineCondition={true}>Change Password</HighLightedText>
+                        </CheckBoxWrapper>
                         <CheckBoxContainer>
                             <CheckBox type='checkbox'/>
-                            <CheckBoxLabel>Remember Me</CheckBoxLabel>
-                        </CheckBoxContainer>
-                        <CheckBoxContainer>
-                            <CheckBox type='checkbox'/>
-                            <CheckBoxLabel>Agree to <HighLightedText>Terms & Conditions</HighLightedText></CheckBoxLabel>
+                            <CheckBoxLabel>Agree to <HighLightedText underlineCondition={true}>Terms & Conditions</HighLightedText></CheckBoxLabel>
                         </CheckBoxContainer>
                         <Button type='submit'>Login</Button>
+                        <Subheading>Don't have an account? <HighLightedText boldCondition={true} underlineCondition={true}>Register Now</HighLightedText></Subheading>
                     </FormContainer>
                 </FormSection>
             </HeroContainer>
